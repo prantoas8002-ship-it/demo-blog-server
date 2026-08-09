@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const app = express();
 
@@ -18,7 +19,13 @@ const connectToDatabase = async function (){
     }
 }
 
+const globalLimit  = rateLimit({
+    windowMS : 15*60*60,
+    max  :100,
+    message : "too many request in this IP , Please try again after 15 minutes"
+})
 
+app.use(globalLimit);
 
 app.use('/api' , require('./route'));
 
