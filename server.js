@@ -8,7 +8,7 @@ const app = express();
 const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(express.json());
-app.use(cors({origin: "*"}));
+app.use(cors({ origin: "*" }));
 
 // conncetion to database
 
@@ -22,8 +22,8 @@ const connectToDatabase = async function () {
 }
 
 const globalLimit = rateLimit({
-    windowMS: 15 * 60 * 60,
-    max: 100,
+    windowMs: 15 * 60 * 60,
+    max: 5,
     message: "too many request in this IP , Please try again after 15 minutes"
 })
 
